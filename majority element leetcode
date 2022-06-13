@@ -1,0 +1,10 @@
+//majority elements are those whose frequency is greater than (array.size()/2);
+//majority elements always occupy the middle position
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) 
+    {
+       sort(nums.begin(),nums.end());
+       return nums[nums.size()/2];
+    }
+};
