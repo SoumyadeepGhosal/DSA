@@ -1,0 +1,21 @@
+//a height-balanced binary tree is defined as:
+
+//a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+class Solution {
+public:
+    bool ans = true;
+    int max_height(TreeNode* root)
+    {
+      if(root==NULL){return 0;}
+      int left = 1+max_height(root->left);
+      int right = 1+max_height(root->right);
+      if(abs(left-right)>1){ans = false;}
+      return max(left,right);
+    }
+    bool isBalanced(TreeNode* root) 
+    {
+        max_height(root);
+        return ans;
+    }
+};
