@@ -1,0 +1,64 @@
+class Solution {
+public:
+    bool isLeaf(Node *node)
+    {
+        if(node->left==NULL&&node->right==NULL)
+        {
+            return true;
+        }
+        return false;
+    }
+    void leftBoundary(Node *root,vector<int> &ans)
+    {
+      Node *node = root->left;
+      if(!isLeaf(node))
+      {
+          ans.push_back(node->data);
+      }
+          if(node->left)
+      {
+          leftBoundary(node->left,ans);
+      }
+      else
+      {
+          leftBoundary(node->right,ans);
+      }
+    }
+    void addLeaves(Node *root,vector<int>& ans)
+    {
+        if(isLeaf(root))
+        {
+           ans.push_back(root->data);
+           return;
+        }
+        if(root->left){addLeaves(root->left,ans);}
+        if(root->right){addLeaves(root->right,ans);}
+    }
+    void rightTraversal(Node *root,vector<int>& ans)
+    {
+        Node *node = root->right;
+        stack<int>st;
+        if(!isLeaf(root))
+        {
+           st.push(root->data); 
+        }
+        if(root->right){rightTraversal(root->right,ans);}
+        else{rightTraversal(root->left,ans);}
+        while(!st.empty())
+        {
+            ans.push_back(st.top());
+            st.pop();
+        }
+    }
+    vector <int> boundary(Node *root)
+    {
+        //Your code here
+        vector<int>ans;
+        if(!root){return ans;}
+        if(!isLeaf(root)){ans.push_back(root->data);}
+        leftBoundary(root,ans);
+        addLeaves(root,ans);
+        rightTraversal(root,ans);
+        return ans;
+    }
+};
