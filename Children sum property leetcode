@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkTree(TreeNode* root) 
+    {
+        TreeNode* l = root->left;
+        TreeNode* r = root->right;
+        if(l->val+r->val==root->val)
+        {
+            return true;
+        }
+        return false;
+    }
+};
