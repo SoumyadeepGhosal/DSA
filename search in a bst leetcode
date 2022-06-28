@@ -1,0 +1,25 @@
+class Solution {
+public:
+    TreeNode* tmp = NULL;
+    void dfs(TreeNode* node,int val)
+    {
+        if(node->val==val)
+        {
+            tmp = node;
+        }
+        if(node->left){dfs(node->left,val);}
+        if(node->right){dfs(node->right,val);}
+    }
+    TreeNode* searchBST(TreeNode* root, int val) 
+    {
+        if(root==NULL)
+        {
+            return root;
+        }
+        else
+        {
+            dfs(root,val);
+        }
+        return tmp;
+    }
+};
