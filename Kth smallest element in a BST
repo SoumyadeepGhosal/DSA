@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int>v;
+    void dfs(TreeNode* root)
+    {
+        if(root==NULL)
+        {
+           return;
+        }
+        else
+        {
+            v.push_back(root->val);
+        }
+        dfs(root->left);
+        dfs(root->right);
+    }
+    int res = -1;
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        if(root==NULL)
+           {
+             return res; 
+           }
+        dfs(root);
+        sort(v.begin(),v.end());
+        return v[k-1];
+    }
+};
