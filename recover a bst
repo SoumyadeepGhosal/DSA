@@ -1,0 +1,45 @@
+class Solution {
+public:
+    TreeNode* first = NULL;
+    TreeNode* prev = NULL;
+    TreeNode* middle = NULL;
+    TreeNode* last = NULL;
+    void dfs(TreeNode* root)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        dfs(root->left);
+        if(prev!=NULL&&root->val<prev->val)
+        {
+            if(first==NULL)
+            {
+                first = prev;
+                middle = root;
+            }
+            else
+            {
+                last = root;
+            }
+         }
+        prev = root;
+        dfs(root->right);
+    }
+    void recoverTree(TreeNode* root) 
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        dfs(root);
+        if(first!=NULL&&last!=NULL)
+        {
+            swap(first->val,last->val);
+        }
+        else if(first!=NULL&&middle!=NULL)
+        {
+            swap(first->val,middle->val);
+        }
+    }
+};
