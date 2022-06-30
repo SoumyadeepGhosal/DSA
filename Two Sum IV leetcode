@@ -1,0 +1,26 @@
+class Solution {
+public:
+    map<int,int>mp;
+    bool res = false;
+    bool findTarget(TreeNode* root, int k) 
+    {
+       if(root==NULL)
+     {
+        return res; 
+     }
+     auto it = mp.find(k-root->val);
+     if(it==mp.end())
+     {
+         mp[root->val]= k-root->val;
+         findTarget(root->left,k);
+         findTarget(root->right,k);
+     }
+     else
+     {
+         res = true;
+         findTarget(root->left,k);
+         findTarget(root->right,k);
+     }
+     return res;    
+    }
+};
