@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> solve(vector<vector<int>>& image, int i, int j, int color,int ref)
+    {
+       if(i<0 || i>=image.size() || j<0 || j>=image[0].size() || image[i][j]!=ref)
+        {
+            return image;
+        }
+        image[i][j] = color;
+        solve(image, i+1, j,color,ref);
+        solve(image, i, j+1,color,ref);
+        solve(image, i-1, j,color,ref);
+        solve(image, i, j-1,color,ref);
+        return image;
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) 
+    {
+        if(image[sr][sc]==color)
+        {
+            return image;
+        }
+        int res = image[sr][sc];
+        vector<vector<int>> result = solve(image,sr,sc,color,res);
+        return result;
+    }
+};
