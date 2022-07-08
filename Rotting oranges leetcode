@@ -1,0 +1,95 @@
+class Solution {
+public:
+     bool isValid(int i , int j, int n, int m, vector<vector<int>>& grid){
+        if(i>=0 && i<m && j>=0 && j<n && grid[i][j] == 1){
+            return true;
+        }
+        return false;
+    }
+    int orangesRotting(vector<vector<int>>& grid) 
+    {
+        int minute = 0;
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<pair<int,int>>q;
+        for(int i = 0;i<m;i++)
+        {
+            for(int j = 0;j<n;j++)
+            {
+               if(grid[i][j]==2)
+               {
+                 q.push({i,j});
+               }
+            }
+        }
+        int fresh = 0;
+        for(int i = 0;i<m;i++)
+        {
+            for(int j = 0;j<n;j++)
+            {
+               if(grid[i][j]==1)
+               {
+                 fresh+=1;
+               }
+            }
+        }
+        if(fresh == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            while(!q.empty())
+         {
+            int size = q.size();
+            int temp = 0;
+            for(int k = 0;k<size;k++)
+            {
+                pair<int,int>p = q.front();
+                q.pop();
+                int i = p.first;
+                int j = p.second;
+                if(isValid(i,j-1,n,m,grid))
+               {
+                temp++;
+                grid[i][j-1] = 2;
+                q.push({i,j-1});
+               }
+               if(isValid(i,j+1,n,m,grid))
+              {
+                temp++;
+                grid[i][j+1] = 2;
+                q.push({i,j+1});
+              }
+               if(isValid(i-1,j,n,m,grid))
+              {
+                temp++;
+                grid[i-1][j] = 2;
+                q.push({i-1,j});
+              }
+              if(isValid(i+1,j,n,m,grid))
+             {
+                temp++;
+                grid[i+1][j] = 2;
+                q.push({i+1,j});
+             }
+            }
+            if(temp!=0)
+            {
+                minute++;
+            }
+        }
+       }
+        for(int i = 0;i<m;i++)
+        {
+            for(int j = 0;j<n;j++)
+            {
+               if(grid[i][j]==1)
+               {
+                 return -1;
+               }
+            }
+        }
+        return minute;
+    }
+};
