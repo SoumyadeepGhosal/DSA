@@ -1,0 +1,24 @@
+int solve(int ind, vector<int> &heights,vector<int> &dp)
+{
+  if(ind==0)
+  {
+    return 0;
+  }
+    if(dp[ind]!=-1)
+    {
+        return dp[ind];
+    }
+        int first = solve(ind-1,heights)+abs(heights[ind]-heights[ind-1]);
+      if(ind>1)
+      {
+          int second = solve(ind-2,heights)+abs(heights[ind]-heights[ind-2]);
+      } 
+    return dp[ind]=min(first,second);
+}
+int frogJump(int n, vector<int> &heights)
+{
+    // Write your code here.
+    int ind = n-1;
+    vector<int>dp(n-1,-1)
+    return solve(ind,heights,dp);
+}
