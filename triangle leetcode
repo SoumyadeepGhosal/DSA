@@ -1,0 +1,43 @@
+class Solution {
+public:
+     int solve(int i,int j,vector<vector<int>>& triangle,vector<vector<int>>& dp)
+    { 
+          if(i==0&&j==0)
+        {
+           return triangle[i][j];
+        }
+         if(i<0||j<0||i>=triangle.size()||j>=triangle[i].size())
+        {
+            return 1e8;
+        }
+        if(dp[i][j]!=-1)
+        {
+            return dp[i][j];
+        }
+        int left = triangle[i][j]+solve(i-1,j-1,triangle,dp);
+        int top = triangle[i][j]+solve(i-1,j,triangle,dp);
+        return dp[i][j]=min(left,top);
+    }
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+        int m = triangle.size();
+        int n = triangle[m-1].size();
+        vector<vector<int>>dp;
+        for(int i = 0;i<m;i++)
+        {
+            vector<int>v;
+            for(int j = 0;j<triangle[i].size();j++)
+            {
+                v.push_back(-1);
+            }
+            dp.push_back(v);
+        }
+        int ans = INT_MAX;
+        for(int j = 0;j<n;j++)
+        {
+            int res = solve(m-1,j,triangle,dp);
+            ans = min(ans,res);
+        }
+        return ans;
+    }
+};
