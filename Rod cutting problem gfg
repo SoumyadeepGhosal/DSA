@@ -1,0 +1,27 @@
+class Solution{
+  public:
+  int subsetSumUtil(int ind, int target,int price[], vector<vector<int>> &dp){
+    if(ind == 0)
+     {
+         return target*price[0];
+     }
+    
+    if(dp[ind][target]!=-1)
+        return dp[ind][target];
+        
+    int notTaken = 0+subsetSumUtil(ind-1,target,price,dp);
+    
+    int taken = INT_MIN;
+    int rod_length = ind+1;
+    if(rod_length<=target)
+      {
+          taken = price[ind]+subsetSumUtil(ind,target-rod_length,price,dp);
+      } 
+    return dp[ind][target]= max(notTaken,taken);
+}
+    int cutRod(int price[], int n) {
+        //code here
+        vector<vector<int>> dp(n,vector<int>(n+1,-1));
+        return subsetSumUtil(n-1,n,price,dp);
+    }
+};
